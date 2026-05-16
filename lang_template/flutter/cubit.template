@@ -1,5 +1,6 @@
+import 'dart:async';
+
 import 'package:equatable/equatable.dart';
-import '../../domain/entities/{{.Name | lower}}_entity.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 sealed class {{.Name}}State extends Equatable {
@@ -33,20 +34,30 @@ class {{.Name}}Error extends {{.Name}}State {
 
 class {{.Name}}Cubit extends Cubit<{{.Name}}State> {
   final Get{{.Name}}UseCase _get{{.Name}}UseCase;
-
+  StreamSubscription? _{{.Name | lower}}Subscription;
   {{.Name}}Cubit({
     required Get{{.Name}}UseCase get{{.Name}}UseCase,
   })  : _get{{.Name}}UseCase = get{{.Name}}UseCase,
         super({{.Name}}Initial());
 
-  Future<void> load{{.Name}}Details(int id) async {
+  Future<void> load{{.Name}}Details(String id) async {
     emit({{.Name}}Loading());
-    
-    final result = await _get{{.Name}}UseCase.execute(id);
-    
-    result.fold(
-      (failure) => emit({{.Name}}Error(failure.message ?? "Failed to retrieve records")),
-      (entity) => emit({{.Name}}Loaded(entity)),
+
+    // Hủy subscription cũ nếu có trước khi lắng nghe cái mới
+    await _{{.Name | lower}}Subscription?.cancel();
+
+    // Bắt đầu lắng nghe dữ liệu thời gian thực
+    _{{.Name | lower}}Subscription = _get{{.Name}}UseCase(id).listen(
+      ({{.Name | lower}}Entity) {
+        if ({{.Name | lower}}Entity != null) {
+          emit({{.Name}}Loaded({{.Name | lower}}Entity));
+        } else {
+          emit({{.Name}}Error("{{.Name}} not found"));
+        }
+      },
+      onError: (error) {
+        emit({{.Name}}Error(error.toString()));
+      },
     );
   }
 }

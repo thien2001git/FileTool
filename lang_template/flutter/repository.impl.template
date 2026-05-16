@@ -1,39 +1,44 @@
-import 'package:dartz/dartz.dart';
-import '../domain/entities/{{.Name | lower}}_entity.dart';
-import '../domain/repositories/i{{.Name | lower}}_repository.dart';
-import '../data/datasources/{{.Name | lower}}_remote_datasource.dart';
-import '../../core/errors/failures.dart';
-import '../../core/errors/exceptions.dart';
 
-class {{.Name}}RepositoryImpl implements I{{.Name}}Repository {
-  final {{.Name}}RemoteDataSource remoteDataSource;
-
-  {{.Name}}RepositoryImpl({required this.remoteDataSource});
-
+class {{.Name}}RepositoryImpl implements {{.Name}}Repository {
   @override
-    try {
-      final remoteModel = await remoteDataSource.get{{.Name}}ById(id);
-      return Right(remoteModel);
-    } on ServerException {
-      return Left(ServerFailure());
-    }
+  Future<void> create({{.Name}}Entity item) {
+    // TODO: implement create
+    throw UnimplementedError();
   }
 
   @override
-    try {
-      final remoteModels = await remoteDataSource.getAll{{.Name}}s();
-      return Right(remoteModels);
-    } on ServerException {
-      return Left(ServerFailure());
-    }
+  Future<void> delete(String id) {
+    // TODO: implement delete
+    throw UnimplementedError();
   }
 
   @override
-    try {
-      final remoteModel = await remoteDataSource.create{{.Name}}(entity);
-      return Right(remoteModel);
-    } on ServerException {
-      return Left(ServerFailure());
-    }
+  Stream<List<{{.Name}}Entity>> getAll() {
+    // TODO: implement getAll
+    throw UnimplementedError();
+  }
+
+  @override
+  Stream<{{.Name}}Entity?> getById(String id) {
+    // TODO: implement getById
+    throw UnimplementedError();
+  }
+
+  @override
+  Stream<List<{{.Name}}Entity>> getByPage({int page = 1, int limit = 10}) {
+    // TODO: implement getByPage
+    throw UnimplementedError();
+  }
+
+  @override
+  Stream<List<{{.Name}}Entity>> searchByPage({String query = '', int page = 1, int limit = 10}) {
+    // TODO: implement searchByPage
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<void> update(String id, {{.Name}}Entity item) {
+    // TODO: implement update
+    throw UnimplementedError();
   }
 }

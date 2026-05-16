@@ -1,14 +1,45 @@
-package {{.PackageName}}.domain.usecase
 
-import {{.PackageName}}.domain.model.{{.Name}}Entity
-import {{.PackageName}}.domain.repository.{{.Name}}Repository
-import kotlinx.coroutines.flow.Flow
-import javax.inject.Inject
+class Create{{.Name}}UseCase {
+  final {{.Name}}Repository _repo;
+  Create{{.Name}}UseCase(this._repo);
+  Future<void> call({{.Name}}Entity data) async => await _repo.create(data);
+}
 
-class Get{{.Name}}UseCase @Inject constructor(
-    private val repository: {{.Name}}Repository
-) {
-    operator fun invoke(id: String): Flow<Result<{{.Name}}Entity>> {
-        return repository.get{{.Name}}ById(id)
-    }
+class Get{{.Name}}UseCase {
+  final {{.Name}}Repository _repo;
+  Get{{.Name}}UseCase(this._repo);
+  Stream<{{.Name}}Entity?> call(String id) => _repo.getById(id);
+}
+
+class Get{{.Name}}sUseCase {
+  final {{.Name}}Repository _repo;
+  Get{{.Name}}sUseCase(this._repo);
+  Stream<List<{{.Name}}Entity>> call() => _repo.getAll();
+}
+
+class Get{{.Name}}sByPageUseCase {
+  final {{.Name}}Repository _repo;
+  Get{{.Name}}sByPageUseCase(this._repo);
+  Stream<List<{{.Name}}Entity>> call({int page = 1, int limit = 10}) => 
+      _repo.getByPage(page: page, limit: limit);
+}
+
+class Update{{.Name}}UseCase {
+  final {{.Name}}Repository _repo;
+  Update{{.Name}}UseCase(this._repo);
+  Future<void> call(String id, {{.Name}}Entity data) async => 
+      await _repo.update(id, data);
+}
+
+class Delete{{.Name}}UseCase {
+  final {{.Name}}Repository _repo;
+  Delete{{.Name}}UseCase(this._repo);
+  Future<void> call(String id) async => await _repo.delete(id);
+}
+
+class Search{{.Name}}UseCase {
+  final {{.Name}}Repository _repo;
+  Search{{.Name}}UseCase(this._repo);
+  Stream<List<{{.Name}}Entity>> call({String query = '', int page = 1, int limit = 10}) => 
+      _repo.searchByPage(query: query, page: page, limit: limit);
 }
