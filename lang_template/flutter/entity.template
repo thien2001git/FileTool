@@ -1,15 +1,10 @@
 import 'package:equatable/equatable.dart';
 
+@JsonSerializable(fieldRename: FieldRename.snake, explicitToJson: true)
 class {{.Name}}Entity extends Equatable {
-  final int id;
-  final String title;
-  final DateTime createdAt;
-
-  const {{.Name}}Entity({
-    required this.id,
-    required this.title,
-    required this.createdAt,
-  });
-
-  @override
+  final String id;
+  
+  factory {{.Name}}.fromJson(Map<String, dynamic> json) =>
+      _${{.Name}}EntityFromJson(json);
+  Map<String, dynamic> toJson() => _${{.Name}}ToJson(this);
 }

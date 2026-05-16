@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
-
 	"file_tool/domain/entity"
 	"file_tool/domain/repository"
 )
@@ -31,9 +30,18 @@ func (r *configRepositoryImpl) GetConfigValue(key entity.ConfigKey) (string, err
 }
 
 func (r *configRepositoryImpl) SetConfigValue(key entity.ConfigKey, value string) error {
-	// Implementation for setting configuration value
+	// 1. Cập nhật giá trị vào memory cache
 	cache[key] = value
-	SaveCacheToFile(cache[entity.CurrDir] + "/config/config_cache.json", cache)
+
+	// 2. Sử dụng filepath.Join thay vì cộng chuỗi "/" để chạy mượt mà trên Windows
+	filePath := filepath.Join(cache[entity.CurrDir], "config", "config_cache.json")
+
+	// 3. FIX LỖI LINT: Kiểm tra giá trị error trả về từ SaveCacheToFile
+	if err := SaveCacheToFile(filePath, cache); err != nil {
+		// Trả lỗi về tầng Use Case xử lý thay vì trả về nil bừa bãi
+		return err 
+	}
+
 	return nil
 }
 

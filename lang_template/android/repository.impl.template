@@ -7,26 +7,8 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
-class {{.Name}}RepositoryImpl @Inject constructor(
-    private val remoteDataSource: {{.Name}}RemoteDataSource
-) : {{.Name}}Repository {
+class {{.Name}}RepositoryImpl (
+    basePath: String
+) : BaseCrudRepositoryImpl<{{.Name}}Entity, String>(basePath), {{.Name}}Repository {
 
-    override fun get{{.Name}}ById(id: String): Flow<Result<{{.Name}}Entity>> = flow {
-        try {
-            val dto = remoteDataSource.fetch{{.Name}}(id)
-            val entity = {{.Name}}Entity(id = dto.id, title = dto.title, createdAt = dto.createdAt)
-            emit(Result.success(entity))
-        } catch (e: Exception) {
-            emit(Result.failure(e))
-        }
-    }
-
-    override fun save{{.Name}}(entity: {{.Name}}Entity): Result<Unit> {
-        return try {
-            remoteDataSource.update(entity)
-            Result.success(Unit)
-        } catch (e: Exception) {
-            Result.failure(e)
-        }
-    }
 }

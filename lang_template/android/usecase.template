@@ -3,7 +3,8 @@ package {{.PackageName}}.domain.repository
 import {{.PackageName}}.domain.model.{{.Name}}Entity
 import kotlinx.coroutines.flow.Flow
 
-interface {{.Name}}Repository {
-    fun get{{.Name}}ById(id: String): Flow<Result<{{.Name}}Entity>>
-    suspend fun save{{.Name}}(entity: {{.Name}}Entity): Result<Unit>
+class {{.Name}}UseCase(
+    private val repository: {{.Name}}Repository
+) {
+    operator suspend fun invoke() = repository.
 }

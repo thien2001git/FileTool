@@ -36,14 +36,13 @@ func getDirsForFramework(fw entity.Framework) []string {
 		}
 	case entity.FrameworkFlutter:
 		return []string{
-			"lib/domain/entity",
-			"lib/domain/usecase",
-			"lib/domain/repository",
-			"lib/data/repository",
-			"lib/data/datasources",
-			"lib/presentation/screen",
-			"lib/presentation/cubit",
-			"lib/shared",
+			"domain/entity",
+			"domain/usecase",
+			"domain/repository",
+			"data/repository",
+			"presentation/screen",
+			"presentation/cubit",
+			"shared",
 		}
 	case entity.FrameworkReactNative:
 		return []string{
@@ -134,12 +133,12 @@ func getTemplateMapping(fw entity.Framework) map[string]string {
 		}
 	case entity.FrameworkFlutter:
 		return map[string]string{
-			"entity.template":          "lib/domain/entity",
-			"repository.template":      "lib/domain/repository",
-			"repository.impl.template": "lib/data/repository",
-			"usecase.template":         "lib/domain/usecase",
-			"viewmodel.template":       "lib/presentation/cubit",
-			"cubit.template":           "lib/presentation/cubit",
+			"entity.template":          "domain/entity",
+			"repository.template":      "domain/repository",
+			"repository.impl.template": "data/repository",
+			"usecase.template":         "domain/usecase",
+			"viewmodel.template":       "presentation/cubit",
+			"cubit.template":           "presentation/cubit",
 		}
 	case entity.FrameworkReactNative:
 		return map[string]string{
@@ -214,7 +213,7 @@ func resolveTargetFileName(fw entity.Framework, templateName string, entityName 
 		case "entity.template":
 			return fmt.Sprintf("%s_entity.dart", lowerEntity)
 		case "repository.template":
-			return fmt.Sprintf("i_%s_repository.dart", lowerEntity)
+			return fmt.Sprintf("%s_repository.dart", lowerEntity)
 		case "repository.impl.template":
 			return fmt.Sprintf("%s_repository_impl.dart", lowerEntity)
 		case "usecase.template":

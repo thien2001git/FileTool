@@ -2,5 +2,5 @@ import 'package:dartz/dartz.dart';
 import '../domain/entities/{{.Name | lower}}_entity.dart';
 import '../../core/errors/failures.dart';
 
-abstract class I{{.Name}}Repository {
+abstract class {{.Name}}Repository {
 }
