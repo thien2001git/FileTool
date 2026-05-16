@@ -1,0 +1,4 @@
+%sEntity.kt
+data class %sEntity (
+    val id: String,
+)

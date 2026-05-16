@@ -1,0 +1,14 @@
+package {{.PackageName}}.domain.usecase
+
+import {{.PackageName}}.domain.model.{{.Name}}Entity
+import {{.PackageName}}.domain.repository.{{.Name}}Repository
+import kotlinx.coroutines.flow.Flow
+import javax.inject.Inject
+
+class Get{{.Name}}UseCase @Inject constructor(
+    private val repository: {{.Name}}Repository
+) {
+    operator fun invoke(id: String): Flow<Result<{{.Name}}Entity>> {
+        return repository.get{{.Name}}ById(id)
+    }
+}

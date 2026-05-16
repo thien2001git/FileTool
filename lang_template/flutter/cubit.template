@@ -1,0 +1,52 @@
+import 'package:equatable/equatable.dart';
+import '../../domain/entities/{{.Name | lower}}_entity.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+sealed class {{.Name}}State extends Equatable {
+  const {{.Name}}State();
+  
+  @override
+  List<Object?> get props => [];
+}
+
+class {{.Name}}Initial extends {{.Name}}State {}
+
+class {{.Name}}Loading extends {{.Name}}State {}
+
+class {{.Name}}Loaded extends {{.Name}}State {
+  final {{.Name}}Entity data;
+
+  const {{.Name}}Loaded(this.data);
+
+  @override
+  List<Object?> get props => [data];
+}
+
+class {{.Name}}Error extends {{.Name}}State {
+  final String errorMessage;
+
+  const {{.Name}}Error(this.errorMessage);
+
+  @override
+  List<Object?> get props => [errorMessage];
+}
+
+class {{.Name}}Cubit extends Cubit<{{.Name}}State> {
+  final Get{{.Name}}UseCase _get{{.Name}}UseCase;
+
+  {{.Name}}Cubit({
+    required Get{{.Name}}UseCase get{{.Name}}UseCase,
+  })  : _get{{.Name}}UseCase = get{{.Name}}UseCase,
+        super({{.Name}}Initial());
+
+  Future<void> load{{.Name}}Details(int id) async {
+    emit({{.Name}}Loading());
+    
+    final result = await _get{{.Name}}UseCase.execute(id);
+    
+    result.fold(
+      (failure) => emit({{.Name}}Error(failure.message ?? "Failed to retrieve records")),
+      (entity) => emit({{.Name}}Loaded(entity)),
+    );
+  }
+}

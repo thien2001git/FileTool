@@ -1,0 +1,9 @@
+export class {{.Name}}Entity {
+  id: string;
+  title: string;
+  createdAt: Date;
+  updatedAt: Date;
+
+    Object.assign(this, partial);
+  }
+}

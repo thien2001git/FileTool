@@ -1,0 +1,39 @@
+import 'package:dartz/dartz.dart';
+import '../domain/entities/{{.Name | lower}}_entity.dart';
+import '../domain/repositories/i{{.Name | lower}}_repository.dart';
+import '../data/datasources/{{.Name | lower}}_remote_datasource.dart';
+import '../../core/errors/failures.dart';
+import '../../core/errors/exceptions.dart';
+
+class {{.Name}}RepositoryImpl implements I{{.Name}}Repository {
+  final {{.Name}}RemoteDataSource remoteDataSource;
+
+  {{.Name}}RepositoryImpl({required this.remoteDataSource});
+
+  @override
+    try {
+      final remoteModel = await remoteDataSource.get{{.Name}}ById(id);
+      return Right(remoteModel);
+    } on ServerException {
+      return Left(ServerFailure());
+    }
+  }
+
+  @override
+    try {
+      final remoteModels = await remoteDataSource.getAll{{.Name}}s();
+      return Right(remoteModels);
+    } on ServerException {
+      return Left(ServerFailure());
+    }
+  }
+
+  @override
+    try {
+      final remoteModel = await remoteDataSource.create{{.Name}}(entity);
+      return Right(remoteModel);
+    } on ServerException {
+      return Left(ServerFailure());
+    }
+  }
+}
