@@ -285,7 +285,7 @@ func (r *genCleanFilesRepositoryImpl) GenCleanFiles(frame_work entity.Framework,
 	}{
 		Name:        name,
 		ModulePath:  strings.ToLower(name),
-		PackageName: "com.system.generated",
+		PackageName: "com.org.caringsleep.common",
 	}
 
 	// 5. Duyệt qua từng template được định nghĩa để render

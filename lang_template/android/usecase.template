@@ -1,6 +1,6 @@
 package {{.PackageName}}.domain.usecase
 
-import {{.PackageName}}.domain.model.{{.Name}}Entity
+import {{.PackageName}}.domain.entity.{{.Name}}Entity
 import {{.PackageName}}.domain.repository.{{.Name}}Repository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject

@@ -2,7 +2,7 @@ package {{.PackageName}}.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import {{.PackageName}}.domain.model.{{.Name}}Entity
+import {{.PackageName}}.domain.entity.{{.Name}}Entity
 import {{.PackageName}}.domain.usecase.Get{{.Name}}UseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow

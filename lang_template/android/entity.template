@@ -1,4 +1,5 @@
-{{.Name}}Entity.kt
+package {{.PackageName}}.domain.entity
+
 data class {{.Name}}Entity (
     val id: String,
 )
